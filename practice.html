@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practice Coding - HTML & CSS Learning Hub</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="sidebar">
+        <a href="index.html">Home</a>
+        <a href="tutorial.html">Tutorial</a>
+        <a href="practice.html">Practice</a>
+        <a href="dev.html">Clock App</a>
+        <a href="contact.html">Contact</a>
+    </div>
+    
+    <div class="content">
+        <h1>Practice Coding</h1>
+        <p>Type your HTML and CSS code below and see the output in real time.</p>
+        
+        <div class="practice-area">
+            <textarea id="htmlCode" placeholder="Write HTML here..."></textarea>
+            <textarea id="cssCode" placeholder="Write CSS here..."></textarea>
+            <button onclick="runCode()">Run</button>
+        </div>
+        
+        <h2>Output:</h2>
+        <iframe id="output"></iframe>
+    </div>
+    
+    <script>
+        function runCode() {
+            let htmlContent = document.getElementById("htmlCode").value;
+            let cssContent = document.getElementById("cssCode").value;
+            
+            let outputFrame = document.getElementById("output").contentWindow.document;
+            outputFrame.open();
+            outputFrame.write(`<!DOCTYPE html><html><head><style>${cssContent}</style></head><body>${htmlContent}</body></html>`);
+            outputFrame.close();
+        }
+    </script>
+</body>
+</html>
