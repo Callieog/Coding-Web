@@ -1,7 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
+
 body {
     background-color: #000000; /* Deep Black Background */
     color: #FFD700; /* Royal Gold Text */
-    font-family: Arial, sans-serif;
+    font-family: 'JetBrains Mono', monospace;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
 }
 
 .sidebar {
@@ -12,13 +17,17 @@ body {
     position: fixed;
     top: 0;
     left: 0;
+    border-right: 2px solid #FFD700; /* Subtle border to define sidebar */
+    box-shadow: 2px 0 10px rgba(255, 215, 0, 0.2); /* Soft shadow for depth */
 }
 
 .sidebar a {
     color: #FFD700; /* Gold Links */
     text-decoration: none;
     display: block;
-    padding: 10px;
+    padding: 12px;
+    transition: background 0.3s ease, color 0.3s ease;
+    border-radius: 5px;
 }
 
 .sidebar a:hover {
@@ -30,6 +39,7 @@ body {
 .content {
     margin-left: 220px;
     padding: 20px;
+    max-width: 800px;
 }
 
 button {
@@ -39,15 +49,33 @@ button {
     padding: 10px 20px;
     cursor: pointer;
     font-weight: bold;
+    border-radius: 5px;
+    transition: background 0.3s ease, transform 0.2s ease;
+    font-family: 'JetBrains Mono', monospace;
 }
 
 button:hover {
     background-color: #B8860B; /* Deeper Gold Hover Effect */
+    transform: scale(1.05); /* Slight enlargement on hover */
 }
 
 .chat-box {
     background-color: #222;
     border: 2px solid #FFD700;
-    padding: 10px;
-    border-radius: 5px;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.3); /* Glowing effect */
+    font-family: 'JetBrains Mono', monospace;
+}
+
+/* Responsive Sidebar for Smaller Screens */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 150px;
+        padding: 10px;
+    }
+    .content {
+        margin-left: 170px;
+        padding: 15px;
+    }
 }
