@@ -1,55 +1,53 @@
 body {
-    background-color: black;
+    background-color: #000000; /* Deep Black Background */
+    color: #FFD700; /* Royal Gold Text */
     font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    color: gold;
 }
 
-header {
-    background: gold;
-    color: black;
-    text-align: center;
+.sidebar {
+    background-color: #111; /* Darker Sidebar */
     padding: 15px;
-    font-size: 24px;
-    font-weight: bold;
+    width: 200px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
 }
 
-nav ul {
-    list-style-type: none;
-    padding: 0;
-    text-align: center;
-    background: black;
-}
-
-nav ul li {
-    display: inline;
-    margin: 15px;
-}
-
-nav ul li a {
-    color: gold;
+.sidebar a {
+    color: #FFD700; /* Gold Links */
     text-decoration: none;
-    font-size: 18px;
-}
-
-section {
-    margin: 20px;
-    padding: 20px;
-    background: #222;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
-}
-
-h1, h2 {
-    color: gold;
-    text-align: center;
-}
-
-footer {
-    text-align: center;
+    display: block;
     padding: 10px;
-    background: gold;
-    color: black;
+}
+
+.sidebar a:hover {
+    background-color: #FFD700;
+    color: #000000;
     font-weight: bold;
+}
+
+.content {
+    margin-left: 220px;
+    padding: 20px;
+}
+
+button {
+    background-color: #FFD700; /* Gold Buttons */
+    color: #000000;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+button:hover {
+    background-color: #B8860B; /* Deeper Gold Hover Effect */
+}
+
+.chat-box {
+    background-color: #222;
+    border: 2px solid #FFD700;
+    padding: 10px;
+    border-radius: 5px;
 }
