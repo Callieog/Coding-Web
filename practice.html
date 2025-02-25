@@ -1,44 +1,79 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Practice Coding - HTML & CSS Learning Hub</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <div class="sidebar">
-        <a href="index.html">Home</a>
-        <a href="practice.html">Practice</a>
-        <a href="tutorial.html">Tutorial</a>
-        <a href="dev.html">Clock App</a>
-        <a href="contact.html">Contact</a>
-    </div>
-    
-    <div class="content">
-        <h1>Practice Coding</h1>
-        <p>Type your HTML and CSS code below and see the output in real time.</p>
-        
-        <div class="practice-area">
-            <textarea id="htmlCode" placeholder="Write HTML here..."></textarea>
-            <textarea id="cssCode" placeholder="Write CSS here..."></textarea>
-            <button onclick="runCode()">Run</button>
-        </div>
-        
-        <h2>Output:</h2>
-        <iframe id="output"></iframe>
-    </div>
-    
-    <script>
-        function runCode() {
-            let htmlContent = document.getElementById("htmlCode").value;
-            let cssContent = document.getElementById("cssCode").value;
-            
-            let outputFrame = document.getElementById("output").contentWindow.document;
-            outputFrame.open();
-            outputFrame.write(`<!DOCTYPE html><html><head><style>${cssContent}</style></head><body>${htmlContent}</body></html>`);
-            outputFrame.close();
-        }
-    </script>
-</body>
-</html>
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
+
+body {
+    background-color: #000; /* Deep Black Background */
+    color: #00FF00; /* Neon Green Hacker Text */
+    font-family: 'JetBrains Mono', monospace;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+/* Sidebar - Classic Hacker Terminal Look */
+.sidebar {
+    background-color: #111; /* Dark Sidebar */
+    padding: 15px;
+    width: 200px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    border-right: 2px solid #00FF00;
+}
+
+.sidebar a {
+    color: #00FF00; /* Neon Green Links */
+    text-decoration: none;
+    display: block;
+    padding: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.sidebar a:hover {
+    background-color: #00FF00;
+    color: #000;
+}
+
+/* Content Area */
+.content {
+    margin-left: 220px;
+    padding: 20px;
+    max-width: 800px;
+}
+
+/* Hacker Button Styles */
+button {
+    background-color: #00FF00; /* Neon Green */
+    color: #000;
+    border: 2px solid #00FF00;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 5px;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+button:hover {
+    background-color: #008000; /* Darker Green */
+}
+
+/* Chat Box */
+.chat-box {
+    background-color: #111;
+    border: 2px solid #00FF00;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+/* Responsive Sidebar for Smaller Screens */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 150px;
+        padding: 10px;
+    }
+    .content {
+        margin-left: 170px;
+        padding: 15px;
+    }
+}
