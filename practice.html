@@ -65,7 +65,7 @@
             background-color: #008000;
         }
 
-        /* Main Container */
+        /* Main Layout */
         .main-container {
             display: flex;
             width: 100%;
@@ -76,7 +76,7 @@
             transition: margin-left 0.3s ease-in-out;
         }
 
-        /* Left Side - Output */
+        /* Left Side - Live Output */
         .output-container {
             flex: 1;
             background-color: #222;
@@ -94,11 +94,12 @@
         iframe {
             flex: 1;
             width: 100%;
+            height: 100%;
             border: none;
             background-color: #000;
         }
 
-        /* Right Side - Code Inputs */
+        /* Right Side - Code Input */
         .editor-container {
             flex: 1;
             display: flex;
@@ -156,7 +157,7 @@
             const mainContainer = document.querySelector(".main-container");
             const htmlInput = document.getElementById("htmlCode");
             const cssInput = document.getElementById("cssCode");
-            const outputFrame = document.getElementById("output").contentWindow.document;
+            const outputFrame = document.getElementById("output");
 
             // Sidebar Toggle
             toggleButton.addEventListener("click", function () {
@@ -171,17 +172,14 @@
 
             // Function to update live preview
             function updatePreview() {
-                outputFrame.open();
-                outputFrame.write(`
-                    <!DOCTYPE html>
-                    <html>
-                        <head>
-                            <style>${cssInput.value}</style>
-                        </head>
-                        <body>${htmlInput.value}</body>
-                    </html>
-                `);
-                outputFrame.close();
+                const htmlContent = htmlInput.value;
+                const cssContent = `<style>${cssInput.value}</style>`;
+
+                // Update iframe content
+                const iframeDoc = outputFrame.contentDocument || outputFrame.contentWindow.document;
+                iframeDoc.open();
+                iframeDoc.write(`<!DOCTYPE html><html><head>${cssContent}</head><body>${htmlContent}</body></html>`);
+                iframeDoc.close();
             }
 
             // Event Listeners for Live Update
