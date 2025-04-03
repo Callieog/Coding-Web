@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HTML & CSS Learning Hub</title>
+    <title>Practice HTML & CSS</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
 
@@ -11,23 +11,24 @@
             background-color: #000;
             color: #00FF00;
             font-family: 'JetBrains Mono', monospace;
-            line-height: 1.6;
             margin: 0;
             padding: 0;
             display: flex;
+            height: 100vh;
+            overflow: hidden;
         }
 
-        /* Sidebar - Starts Hidden */
+        /* Sidebar - Initially Hidden */
         .sidebar {
             background-color: #111;
-            padding: 15px;
             width: 200px;
             height: 100vh;
             position: fixed;
             top: 0;
-            left: -200px; /* Hidden by default */
+            left: -200px;
             border-right: 2px solid #00FF00;
             transition: left 0.3s ease-in-out;
+            padding-top: 20px;
         }
 
         .sidebar a {
@@ -52,24 +53,27 @@
             background-color: #00FF00;
             color: #000;
             border: none;
-            padding: 5px 10px;
+            padding: 8px 12px;
             cursor: pointer;
             font-weight: bold;
             border-radius: 5px;
             font-family: 'JetBrains Mono', monospace;
+            z-index: 1000;
         }
 
         #sidebarToggle:hover {
             background-color: #008000;
         }
 
-        /* Main Layout */
+        /* Main Container */
         .main-container {
             display: flex;
             width: 100%;
             height: 100vh;
             padding: 10px;
             box-sizing: border-box;
+            margin-left: 0px;
+            transition: margin-left 0.3s ease-in-out;
         }
 
         /* Left Side - Output */
@@ -78,12 +82,18 @@
             background-color: #222;
             border: 2px solid #00FF00;
             padding: 10px;
-            margin-right: 10px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        h2 {
+            margin: 5px;
+            text-align: center;
         }
 
         iframe {
+            flex: 1;
             width: 100%;
-            height: 100%;
             border: none;
             background-color: #000;
         }
@@ -94,9 +104,9 @@
             display: flex;
             flex-direction: column;
             gap: 10px;
+            padding-left: 10px;
         }
 
-        /* CSS and HTML Inputs */
         textarea {
             background-color: #111;
             color: #00FF00;
@@ -104,34 +114,10 @@
             font-family: 'JetBrains Mono', monospace;
             padding: 10px;
             width: 100%;
+            height: 50%;
             resize: none;
         }
 
-        /* CSS on Top, HTML on Bottom */
-        #cssCode {
-            height: 50%;
-        }
-
-        #htmlCode {
-            height: 50%;
-        }
-
-        /* Run Button */
-        #runButton {
-            background-color: #00FF00;
-            color: #000;
-            border: 2px solid #00FF00;
-            padding: 10px;
-            cursor: pointer;
-            font-weight: bold;
-            border-radius: 5px;
-            font-family: 'JetBrains Mono', monospace;
-            width: 100%;
-        }
-
-        #runButton:hover {
-            background-color: #008000;
-        }
     </style>
 </head>
 <body>
@@ -160,36 +146,51 @@
 
             <h2>HTML Code</h2>
             <textarea id="htmlCode" placeholder="Write HTML here..."></textarea>
-
-            <button id="runButton" onclick="runCode()">Run</button>
         </div>
     </div>
 
     <script>
-        // Sidebar Toggle Functionality
         document.addEventListener("DOMContentLoaded", function () {
             const sidebar = document.querySelector(".sidebar");
             const toggleButton = document.getElementById("sidebarToggle");
+            const mainContainer = document.querySelector(".main-container");
+            const htmlInput = document.getElementById("htmlCode");
+            const cssInput = document.getElementById("cssCode");
+            const outputFrame = document.getElementById("output").contentWindow.document;
 
+            // Sidebar Toggle
             toggleButton.addEventListener("click", function () {
                 if (sidebar.style.left === "0px") {
                     sidebar.style.left = "-200px"; // Hide sidebar
+                    mainContainer.style.marginLeft = "0px";
                 } else {
                     sidebar.style.left = "0px"; // Show sidebar
+                    mainContainer.style.marginLeft = "200px";
                 }
             });
+
+            // Function to update live preview
+            function updatePreview() {
+                outputFrame.open();
+                outputFrame.write(`
+                    <!DOCTYPE html>
+                    <html>
+                        <head>
+                            <style>${cssInput.value}</style>
+                        </head>
+                        <body>${htmlInput.value}</body>
+                    </html>
+                `);
+                outputFrame.close();
+            }
+
+            // Event Listeners for Live Update
+            htmlInput.addEventListener("input", updatePreview);
+            cssInput.addEventListener("input", updatePreview);
+
+            // Initial Render
+            updatePreview();
         });
-
-        // Run Code Functionality
-        function runCode() {
-            let htmlContent = document.getElementById("htmlCode").value;
-            let cssContent = document.getElementById("cssCode").value;
-
-            let outputFrame = document.getElementById("output").contentWindow.document;
-            outputFrame.open();
-            outputFrame.write(`<!DOCTYPE html><html><head><style>${cssContent}</style></head><body>${htmlContent}</body></html>`);
-            outputFrame.close();
-        }
     </script>
 
 </body>
