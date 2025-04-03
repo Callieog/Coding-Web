@@ -1,79 +1,196 @@
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML & CSS Learning Hub</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
 
-body {
-    background-color: #000; /* Deep Black Background */
-    color: #00FF00; /* Neon Green Hacker Text */
-    font-family: 'JetBrains Mono', monospace;
-    line-height: 1.6;
-    margin: 0;
-    padding: 0;
-}
+        body {
+            background-color: #000;
+            color: #00FF00;
+            font-family: 'JetBrains Mono', monospace;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
 
-/* Sidebar - Classic Hacker Terminal Look */
-.sidebar {
-    background-color: #111; /* Dark Sidebar */
-    padding: 15px;
-    width: 200px;
-    height: 100vh;
-    position: fixed;
-    top: 0;
-    left: 0;
-    border-right: 2px solid #00FF00;
-}
+        /* Sidebar - Starts Hidden */
+        .sidebar {
+            background-color: #111;
+            padding: 15px;
+            width: 200px;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: -200px; /* Hidden by default */
+            border-right: 2px solid #00FF00;
+            transition: left 0.3s ease-in-out;
+        }
 
-.sidebar a {
-    color: #00FF00; /* Neon Green Links */
-    text-decoration: none;
-    display: block;
-    padding: 12px;
-    font-weight: bold;
-    text-transform: uppercase;
-}
+        .sidebar a {
+            color: #00FF00;
+            text-decoration: none;
+            display: block;
+            padding: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
 
-.sidebar a:hover {
-    background-color: #00FF00;
-    color: #000;
-}
+        .sidebar a:hover {
+            background-color: #00FF00;
+            color: #000;
+        }
 
-/* Content Area */
-.content {
-    margin-left: 220px;
-    padding: 20px;
-    max-width: 800px;
-}
+        /* Sidebar Toggle Button */
+        #sidebarToggle {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            background-color: #00FF00;
+            color: #000;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-weight: bold;
+            border-radius: 5px;
+            font-family: 'JetBrains Mono', monospace;
+        }
 
-/* Hacker Button Styles */
-button {
-    background-color: #00FF00; /* Neon Green */
-    color: #000;
-    border: 2px solid #00FF00;
-    padding: 10px 20px;
-    cursor: pointer;
-    font-weight: bold;
-    border-radius: 5px;
-    font-family: 'JetBrains Mono', monospace;
-}
+        #sidebarToggle:hover {
+            background-color: #008000;
+        }
 
-button:hover {
-    background-color: #008000; /* Darker Green */
-}
+        /* Main Layout */
+        .main-container {
+            display: flex;
+            width: 100%;
+            height: 100vh;
+            padding: 10px;
+            box-sizing: border-box;
+        }
 
-/* Chat Box */
-.chat-box {
-    background-color: #111;
-    border: 2px solid #00FF00;
-    padding: 15px;
-    border-radius: 8px;
-}
+        /* Left Side - Output */
+        .output-container {
+            flex: 1;
+            background-color: #222;
+            border: 2px solid #00FF00;
+            padding: 10px;
+            margin-right: 10px;
+        }
 
-/* Responsive Sidebar for Smaller Screens */
-@media (max-width: 768px) {
-    .sidebar {
-        width: 150px;
-        padding: 10px;
-    }
-    .content {
-        margin-left: 170px;
-        padding: 15px;
-    }
-}
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background-color: #000;
+        }
+
+        /* Right Side - Code Inputs */
+        .editor-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        /* CSS and HTML Inputs */
+        textarea {
+            background-color: #111;
+            color: #00FF00;
+            border: 2px solid #00FF00;
+            font-family: 'JetBrains Mono', monospace;
+            padding: 10px;
+            width: 100%;
+            resize: none;
+        }
+
+        /* CSS on Top, HTML on Bottom */
+        #cssCode {
+            height: 50%;
+        }
+
+        #htmlCode {
+            height: 50%;
+        }
+
+        /* Run Button */
+        #runButton {
+            background-color: #00FF00;
+            color: #000;
+            border: 2px solid #00FF00;
+            padding: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            border-radius: 5px;
+            font-family: 'JetBrains Mono', monospace;
+            width: 100%;
+        }
+
+        #runButton:hover {
+            background-color: #008000;
+        }
+    </style>
+</head>
+<body>
+
+    <button id="sidebarToggle">☰</button>
+
+    <div class="sidebar">
+        <a href="index.html">Home</a>
+        <a href="practice.html">Practice</a>
+        <a href="tutorial.html">Tutorial</a>
+        <a href="dev.html">Clock App</a>
+        <a href="contact.html">Contact</a>
+    </div>
+
+    <div class="main-container">
+        <!-- Output Area -->
+        <div class="output-container">
+            <h2>Live Output</h2>
+            <iframe id="output"></iframe>
+        </div>
+
+        <!-- Coding Area -->
+        <div class="editor-container">
+            <h2>CSS Code</h2>
+            <textarea id="cssCode" placeholder="Write CSS here..."></textarea>
+
+            <h2>HTML Code</h2>
+            <textarea id="htmlCode" placeholder="Write HTML here..."></textarea>
+
+            <button id="runButton" onclick="runCode()">Run</button>
+        </div>
+    </div>
+
+    <script>
+        // Sidebar Toggle Functionality
+        document.addEventListener("DOMContentLoaded", function () {
+            const sidebar = document.querySelector(".sidebar");
+            const toggleButton = document.getElementById("sidebarToggle");
+
+            toggleButton.addEventListener("click", function () {
+                if (sidebar.style.left === "0px") {
+                    sidebar.style.left = "-200px"; // Hide sidebar
+                } else {
+                    sidebar.style.left = "0px"; // Show sidebar
+                }
+            });
+        });
+
+        // Run Code Functionality
+        function runCode() {
+            let htmlContent = document.getElementById("htmlCode").value;
+            let cssContent = document.getElementById("cssCode").value;
+
+            let outputFrame = document.getElementById("output").contentWindow.document;
+            outputFrame.open();
+            outputFrame.write(`<!DOCTYPE html><html><head><style>${cssContent}</style></head><body>${htmlContent}</body></html>`);
+            outputFrame.close();
+        }
+    </script>
+
+</body>
+</html>
